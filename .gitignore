@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 .~*
+.idea/
+.DS_Store
