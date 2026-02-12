@@ -11,7 +11,6 @@ Instead of relying on parametric assumptions, this tool uses resampling techniqu
 ## Key Features
 -   **Comparative Inference:** Visualizes the bootstrap distribution of the difference in means ($\mu_1 - \mu_2$).
 -   **Interactive Controls:** Users can dynamicall adjust the number of bootstrap iterations ($B$), random seed, and hypothesis to test.
--   **Statistical Rigor:** Displays 95% Confidence Intervals to visually assess statistical significance.
 
 ## Dataset
 Data sourced from:  
