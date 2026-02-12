@@ -1,0 +1,9 @@
+I've noticed only 2 of your members are listed as contributors. Shouldn't the rest of your teammates have access to the repository? I am going to check git history towards the end.
+
+For the number of iterations: instead of giving 3 options, I'd give a range of samples (between 1000 to 10000, maybe).
+
+Good proposal!
+
+1/1
+
+-Anna
