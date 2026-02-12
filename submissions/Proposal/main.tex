@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+\usepackage[dvipsnames]{xcolor} 
+\usepackage{amsmath} 
+\usepackage{natbib} 
+\usepackage{hyperref}
+
+\begin{document}
+	\begin{center}
+		\LARGE{\textbf{STA380 Project Proposal}} \\
+		\vspace{1em}
+		\Large{Theme 3: Bootstrap Analysis of Physiological Traits in Florida Scrub Lizards} \\
+		\vspace{1em}
+        % Group Members
+		\normalsize\textbf{Addison Dinglasan, Amna Ibrahim, Maheep Mundra, Jingyue Xu} \\
+		\vspace{0.5em}
+		\normalsize{University of Toronto, Mississauga}
+	\end{center}
+
+    % Section 1
+    \section{Project Topic}
+    \noindent \textbf{Theme 3 (Resampling Methods): Bootstrap Estimation and Comparative Analysis.} \\
+    \noindent This project explores Theme 3: Resampling Methods. Bootstrap estimation will be applied to a published biological dataset, ``Size, sex, reproductive status and body temperature dataset'' by \cite{gainsbury2021size}. \\
+    
+    % Section 2
+    \section{Simulation vs. Dataset}
+    \noindent This project will use a dataset rather than a purely simulated approach. The data were obtained from Data Dryad. Specifically, the dataset ``Size, sex, reproductive status and body temperature dataset'' by \cite{gainsbury2021size} was used.
+
+    % Section 3
+    \section{Project Details}
+    \noindent The goal of this project is to create an interactive R Shiny application that uses the \textbf{Two-Sample Bootstrap} method to estimate the difference between biological groups. We will account for potential skew in the biological data by using resampling methods instead of relying on parametric assumptions.
+    
+    \noindent We will implement the following comparative analyses:
+    \begin{itemize}
+        \item \textbf{Sexual Dimorphism (Snout Length):} Comparing \textit{Male} vs. \textit{Female} samples to test if females are significantly larger than males.
+        \item \textbf{Thermoregulation (Body Temperature):} Comparing \textit{Gravid (Pregnant)} vs. \textit{Non-Gravid} females. This investigates the hypothesis that reproductive status influences thermal biology, which has critical conservation implications in the face of climate change.
+    \end{itemize}
+
+    \noindent The application will provide the following outputs:
+    \begin{itemize}
+        \item \textbf{Bootstrap Distribution Histograms:} Visualizing the distribution of the \textit{Difference in Means} ($\mu_1 - \mu_2$) between the selected groups.
+        \item \textbf{Comparative Statistics Table:} Displaying the observed mean, median, and standard deviation for both groups side-by-side.
+    \end{itemize}
+
+    % Section 4
+    \section{User Inputs (Shiny Components)}
+    The interactive R Shiny application will allow users to dynamically adjust the analysis parameters. Users will be able to modify the following \textbf{5 inputs}:
+    
+    \begin{enumerate}
+        \item \textbf{Comparison Hypothesis Selection:} A dropdown to select the biological comparison (e.g., ``Male vs. Female'' or ``Gravid vs. Non-Gravid'').
+        \item \textbf{Statistic of Interest:} Select whether to calculate the Difference in Means or Difference in Medians.
+        \item \textbf{Number of Iterations:} A numeric input to set the number of bootstrap samples (e.g., 1000, 5000, 10000).
+        \item \textbf{Random Seed:} A numeric input to set the seed for reproducibility.
+        \item \textbf{Visualization Colors:} A colour picker input to customize the histogram colors.
+    \end{enumerate}
+
+    % Section 5 (Required for marks)
+    \section{Statement regarding Generative AI Usage}
+    We utilized generative AI (Gemini/ChatGPT) to help refine the wording of the project proposal for clarity and academic tone, specifically in the ``Project Details'' section. AI was also used to debug the \LaTeX\ code for proper formatting. The core statistical methodology, choice of dataset, and hypothesis formulation were determined by the group members without AI assistance.
+
+% Bibliography Section
+% \nocite{*} ensures ALL references in the .bib file are displayed, not just the cited ones.
+\nocite{*} 
+\bibliographystyle{abbrvnat}
+\bibliography{bibliography}
+
+\end{document}
