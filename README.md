@@ -20,4 +20,3 @@ Gainsbury, Alison (2021). *Size, sex, reproductive status and body temperature d
 ## Technologies
 -   R
 -   R Shiny
--   `tidyverse` / `ggplot2`
