@@ -1,6 +1,12 @@
 library(testthat)
 source("bootstrap.R")
 
+# Test 1: Check basic output structure
+# This makes sure the function returns:
+# - numeric values
+# - the correct number of bootstrap samples
+# - no missing or infinite values
+# This checks that the function runs properly for a normal input.
 test_that("two_sample_bootstrap returns a numeric vector of the right length", {
   set.seed(1)
   g1 <- c(1, 2, 3, 4, 5)
@@ -13,6 +19,8 @@ test_that("two_sample_bootstrap returns a numeric vector of the right length", {
   expect_true(all(is.finite(out)))
 })
 
+# Test 2: Check reproducibility
+# If we use the same random seed, we should get the same bootstrap results.
 test_that("two_sample_bootstrap is reproducible under set.seed()", {
   g1 <- rnorm(20)
   g2 <- rnorm(20)
@@ -26,19 +34,43 @@ test_that("two_sample_bootstrap is reproducible under set.seed()", {
   expect_equal(out1, out2)
 })
 
+# Test 3: Constant groups
+# If both groups contain only constant values,
+# every bootstrap resample will also be constant.
+# So the difference should always be the same value.
+# This checks that the difference is computed correctly.
 test_that("constant groups give a constant bootstrap difference (mean)", {
-  # This is a valid input case with a fully predictable output.
   set.seed(99)
   g1 <- rep(0, 30)
   g2 <- rep(5, 30)
   
   out <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "mean")
   
+  # Function returns stat(group1) - stat(group2) = 0 - 5 = -5
   expect_true(all(out == -5))
 })
 
+# Test 4: Constant groups (median case)
+# Same idea as above, but for the median option.
+# This confirms that the median branch of the function works correctly.
+test_that("constant groups give a constant bootstrap difference (median)", {
+  set.seed(99)
+  g1 <- rep(0, 30)
+  g2 <- rep(5, 30)
+  
+  out <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "median")
+  
+  # Median(group1) - Median(group2) = 0 - 5 = -5
+  expect_true(all(out == -5))
+})
+
+# Test 5: Mean vs median option works
+# This checks that both "mean" and "median" options:
+# - return numeric vectors
+# - return the correct number of bootstrap samples
+# - do not produce invalid values
+# This ensures both statistic options run correctly.
 test_that("mean vs median option returns valid outputs", {
-  # Valid input where mean and median are meaningfully different.
   set.seed(42)
   g1 <- c(0, 0, 0, 0, 100)
   g2 <- c(0, 0, 0, 0, 0)
@@ -54,9 +86,17 @@ test_that("mean vs median option returns valid outputs", {
   expect_true(all(is.finite(out_med)))
 })
 
-#ADDITIONAL TEST (not necessary)
-test_that("function runs on the project dataset (smoke test)", {
-  # Smoke test = “it runs and returns sensible numeric output” on real data.
+# Test 6: 
+# This checks that the function works on the actual project data.
+# It does not check exact values — only that:
+# - the function runs
+# - the output has the correct length
+# - the output is numeric and valid
+test_that("function runs on the project dataset", {
+  
+  # Only run if the file exists (prevents failure if data.csv is missing)
+  skip_if_not(file.exists("data.csv"))
+  
   df <- read.csv("data.csv", check.names = FALSE)
   
   male_svl <- df$`Snout-vent length (mm)`[df$Sex == "M"]
