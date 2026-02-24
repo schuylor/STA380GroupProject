@@ -1,6 +1,6 @@
 ---
 title: "Data analysis"
-Author: "Maheep Mundra"
+Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
 output: html_document
 ----
@@ -9,11 +9,11 @@ output: html_document
 library(tidyverse)
 library(ggplot2)
 library(knitr)
-source("submissions/BasicImplementation/bootstrap.R")
+source("bootstrap.R")
 ```
 # Load Data
 ```{r}
-lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
+lizard_data <- read.csv("data.csv",
  fileEncoding = "latin1")
 
 # Inspect data
@@ -114,7 +114,7 @@ comparative_table_for_mean_len <- data.frame(
 # Print table
 print(comparative_table_for_mean_len)
   
-  ```
+```
   # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
 # Convert to dataframe
