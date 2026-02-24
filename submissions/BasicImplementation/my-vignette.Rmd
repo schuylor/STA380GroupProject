@@ -113,7 +113,6 @@ comparative_table_for_mean_len <- data.frame(
 
 # Print table
 print(comparative_table_for_mean_len)
-  
 ```
   # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
