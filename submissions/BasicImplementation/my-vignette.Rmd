@@ -4,31 +4,45 @@ Author: "Maheep Mundra"
 Date: "2026-02-24"
 output: html_document
 ----
-#Import libraies and methods
+# Import libraies and methods
 ```{r}
 library(tidyverse)
 library(ggplot2)
 library(knitr)
 source("submissions/BasicImplementation/bootstrap.R")
 ```
-
-#Clean up data
-```{r}
 # Load Data
-lizard_data <- read.csv("submissions/BasicImplementation/data.csv", fileEncoding = "UTF-8")
+```{r}
+lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
+ fileEncoding = "latin1")
 
 # Inspect data
-print(head(lizard_data))
-
+print(head(lizard_data, 5))
+```
+# Clean up data
+```{r}
 #Clean names replace . with _ between word spaces,
 #remove white spaces and lowercase
-clean_names <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
-print(head(clean_names))
+colnames(lizard_data) <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
 
-#Remove rows with missing sex, snout_vent_length_mm or body_temprature
-clean_data <- clean_names %>% 
+#Print the first 5 entries of data set
+print(head(lizard_data, 5))
+#Print Size of data set
+print(dim(lizard_data))
+
+#Remove rows with missing sex, snout_vent_length_mm or body_temperature_c
+clean_data <- lizard_data %>% 
     filter(
     !is.na(sex),
     !is.na(snout_vent_length_mm),
-    !is.na(body_temperature))
+    !is.na(body_temperature_c))
+
+#Print the first 5 entries of data set
+print(head(clean_data, 5))
+#Print Size of data set
+print(dim(clean_data))
+```
+# Extract data
+```{r}
+
 ```
