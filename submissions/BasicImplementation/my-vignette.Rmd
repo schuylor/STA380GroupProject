@@ -1,5 +1,5 @@
 ---
-title: "Data analysis"
+title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
 output: html_document
