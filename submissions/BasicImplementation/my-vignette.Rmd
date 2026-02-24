@@ -11,3 +11,12 @@ library(ggplot2)
 library(knitr)
 source("submissions/BasicImplementation/bootstrap.R")
 ```
+
+#Clean up data
+```{r}
+# Load Data
+lizard_data <- read.csv("submissions/BasicImplementation/data.csv", fileEncoding = "UTF-8")
+# Inspect data
+print(head(lizard_data))
+print(summary(lizard_data))
+```
