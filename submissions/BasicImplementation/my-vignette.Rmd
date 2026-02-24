@@ -63,18 +63,17 @@ f_nongravid_btemp <- clean_data[  # Body temp of non-pregnant females
     "body_temperature_c"]
 ```
 
-# Apply two sample bootstrap function to calculate mean and median
+# Apply two sample bootstrap function to calculate mean
 ```{r}
 
-#Boosstrap estimate for Snout Lengths
+#Bootstrap estimate for mean Snout Lengths
 boot_mean_snout_len <- two_sample_bootstrap(
     male_snout_len, 
     female_snout_len,
     iterations = 1000,
     stat = "mean")
 
-boot_snout_len_m <- boot_mean_snout_len["male_snout_len"]
-boot_snout_len_f <- boot_mean_snout_len["female_snout_len"]
+print(head(boot_mean_snout_len, 5))
 
 # Bootstrap estimate for Body temp of  gravid and non-gravid females 
 boot_mean_body_temp <- two_sample_bootstrap(
@@ -83,27 +82,38 @@ boot_mean_body_temp <- two_sample_bootstrap(
     iterations = 1000,
     stat = "mean")
 
-boot_btemp_gravid <- boot_mean_body_temp["f_gravid_btemp"]
-boot_btemp_nongravid <- boot_mean_body_temp["f_nongravid_btemp"]
 
 ```
 # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Snout Lengths (Male vs Female)
 ```{r}
-#Define dataframe
-snout_bootstrap_dist <- data.frame(
-    value = c(boot_snout_len_m, boot_snout_len_f),
-    group = rep(c("Male", "Female")))
-
+# Convert to dataframe
+boot_mean_snout_len_dist <- data.frame(diffs = boot_mean_snout_len)
 #Plot bootstrap Distribution Histogram
-ggplot(snout_bootstrap_dist, aes(x = value, fill = group)) +
-    geom_histogram(bins = 30, fill = "blue", color = "black")+
-    geom_vline(xintercept = mean(boot_snout_len_m - boot_snout_len_f),
+ggplot(boot_mean_snout_len_dist, aes(x = diffs))  +
+    geom_histogram(bins = 30, fill = "lightblue", color = "black")+
+    geom_vline(xintercept = mean(boot_mean_snout_len),
              color = "red", size = 1.2) +
   labs(
     title = "Bootstrap Distribution: Snouth length Difference (Male vs Female)",
     x = "Difference in Mean snout lengths (mm)",
     y = "Frequency"
   )
+ #Comparative Table
+comparative_table <- data.frame(
+  Statistic = c("Mean", "Median", "Standard Deviation"),
+  Male = c(
+    mean(male_snout_len),
+    median(male_snout_len),
+    sd(male_snout_len)),
+  Female = c(
+    mean(female_snout_len),
+    median(female_snout_len),
+    sd(female_snout_len)
+  ))
+
+# Print table
+print(comparative_table)
+  
   ```
   # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
