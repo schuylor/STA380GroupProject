@@ -9,11 +9,11 @@ output: html_document
 library(tidyverse)
 library(ggplot2)
 library(knitr)
-source("bootstrap.R")
+source("submissions/BasicImplementation/bootstrap.R")
 ```
 # Load Data
 ```{r}
-lizard_data <- read.csv("data.csv",
+lizard_data <- read.csv("submissions/BasicImplementation/bootstrap.R",
  fileEncoding = "latin1")
 
 # Inspect data
@@ -144,3 +144,4 @@ comparative_table_for_mean_body_temp <- data.frame(
 # Print table
 print(comparative_table_for_mean_body_temp)
 ```
+
