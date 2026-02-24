@@ -1,6 +1,6 @@
 ---
 title: "Data analysis"
-Author: "Maheep Mundra"
+Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
 output: html_document
 ----
