@@ -1,10 +1,10 @@
 ---
-title: "Data anlysis"
+title: "Data analysis"
 Author: "Maheep Mundra"
-Date: "2026-02-24"
+Date: "2026-02-23"
 output: html_document
 ----
-# Import libraies and methods
+# Import libraries and methods
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -25,7 +25,7 @@ print(head(lizard_data, 5))
 #remove white spaces and lowercase
 colnames(lizard_data) <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
 
-#Print the first 50 entries of data set
+#Print the first 50 entries of dataset
 print(head(lizard_data, 50))
 #Print Size of data set
 print(dim(lizard_data))
@@ -37,7 +37,7 @@ clean_data <- lizard_data %>%
     !is.na(snout_vent_length_mm),
     !is.na(body_temperature_c))
 
-#Print the first 5 entries of data set
+#Print the first 5 entries of dataset
 print(head(clean_data, 5))
 #Print Size of data set
 print(dim(clean_data))
@@ -76,7 +76,7 @@ boot_mean_snout_len <- two_sample_bootstrap(
 boot_snout_len_m <- boot_mean_snout_len["male_snout_le"]
 boot_snout_len_f <- boot_mean_snout_len["female_snout_len"]
 
-#Boosstrap estimate for Body temp of  gravid and non-gravid femaless 
+# Bootstrap estimate for Body temp of  gravid and non-gravid females 
 boot_mean_body_temp <- two_sample_bootstrap(
     f_gravid_btemp, 
     f_nongravid_btemp,
@@ -87,7 +87,7 @@ boot_btemp_gravid <- boot_mean_body_temp["f_gravid_btemp"]
 boot_btemp_nongravid <- boot_mean_body_temp["f_nongravid_btemp"]
 
 ```
-# Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Snout Lengths (Male vs Female)
+# Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Snout Lengths (Male vs Female)
 ```{r}
 #Define dataframe
 snout_bootstrap_dist <- data.frame(
@@ -107,4 +107,5 @@ ggplot(snout_bootstrap_dist, aes(x = value, fill = group)) +
   ```
   # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
+
 ```
