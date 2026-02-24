@@ -1,5 +1,5 @@
----
-title: "Data analysis"
+----
+title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
 output: html_document
@@ -9,11 +9,11 @@ output: html_document
 library(tidyverse)
 library(ggplot2)
 library(knitr)
-source("submissions/BasicImplementation/bootstrap.R")
+source("bootstrap.R")
 ```
 # Load Data
 ```{r}
-lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
+lizard_data <- read.csv("data.csv",
  fileEncoding = "latin1")
 
 # Inspect data
