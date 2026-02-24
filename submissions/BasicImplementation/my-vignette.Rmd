@@ -73,7 +73,7 @@ boot_mean_snout_len <- two_sample_bootstrap(
     iterations = 1000,
     stat = "mean")
 
-boot_snout_len_m <- boot_mean_snout_len["male_snout_le"]
+boot_snout_len_m <- boot_mean_snout_len["male_snout_len"]
 boot_snout_len_f <- boot_mean_snout_len["female_snout_len"]
 
 #Boosstrap estimate for Body temp of  gravid and non-gravid femaless 
