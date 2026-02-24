@@ -48,26 +48,63 @@ print(dim(clean_data))
 male_snout_len <- clean_data[    # Male snout length
     clean_data["sex"] == "M",
     "snout_vent_length_mm"]
-print(head(male_snout_len, 5))
 
 female_snout_len <- clean_data[  # Female snout length
     clean_data["sex"] == "F",
     "snout_vent_length_mm"]
-print(head(female_snout_len_snout_len, 5))
 
 # Body Temps
 f_gravid_btemp <- clean_data[     # Body temp of pregnant females
     clean_data["reproductive_status"] == "gravid",
     "body_temperature_c"]
-print(head(f_gravid_btemp, 5))
 
 f_nongravid_btemp <- clean_data[  # Body temp of non-pregnant females
     clean_data["reproductive_status"] == "nongravid",
     "body_temperature_c"]
-print(head(f_nongravid_btemp, 5))
+```
 
-m_btemp <- clean_data[    # Male body temp
-    clean_data["sex"] == "M",
-    "body_temperature_c"]
-print(head(m_btemp, 5))
+# Apply two sample bootstrap function to calculate mean and median
+```{r}
+
+#Boosstrap estimate for Snout Lengths
+boot_mean_snout_len <- two_sample_bootstrap(
+    male_snout_len, 
+    female_snout_len,
+    iterations = 1000,
+    stat = "mean")
+
+boot_snout_len_m <- boot_mean_snout_len["male_snout_le"]
+boot_snout_len_f <- boot_mean_snout_len["female_snout_len"]
+
+#Boosstrap estimate for Body temp of  gravid and non-gravid femaless 
+boot_mean_body_temp <- two_sample_bootstrap(
+    f_gravid_btemp, 
+    f_nongravid_btemp,
+    iterations = 1000,
+    stat = "mean")
+
+boot_btemp_gravid <- boot_mean_body_temp["f_gravid_btemp"]
+boot_btemp_nongravid <- boot_mean_body_temp["f_nongravid_btemp"]
+
+```
+# Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Snout Lengths (Male vs Female)
+```{r}
+#Define dataframe
+snout_bootstrap_dist <- data.frame(
+    value = c(boot_snout_len_m, boot_snout_len_f),
+    group = rep(c("Male", "Female")))
+
+#Plot bootstrap Distribution Histogram
+ggplot(snout_bootstrap_dist, aes(x = value, fill = group)) +
+    geom_histogram(bins = 30, fill = "blue", color = "black")+
+    geom_vline(xintercept = mean(boot_snout_len_m - boot_snout_len_f),
+             color = "red", size = 1.2) +
+  labs(
+    title = "Bootstrap Distribution: Snouth length Difference (Male vs Female)",
+    x = "Difference in Mean snout lengths (mm)",
+    y = "Frequency"
+  )
+  ```
+  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
+```{r}
 ```
