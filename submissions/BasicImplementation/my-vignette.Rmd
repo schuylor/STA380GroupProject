@@ -16,7 +16,19 @@ source("submissions/BasicImplementation/bootstrap.R")
 ```{r}
 # Load Data
 lizard_data <- read.csv("submissions/BasicImplementation/data.csv", fileEncoding = "UTF-8")
+
 # Inspect data
 print(head(lizard_data))
-print(summary(lizard_data))
+
+#Clean names replace . with _ between word spaces,
+#remove white spaces and lowercase
+clean_names <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
+print(head(clean_names))
+
+#Remove rows with missing sex, snout_vent_length_mm or body_temprature
+clean_data <- clean_names %>% 
+    filter(
+    !is.na(sex),
+    !is.na(snout_vent_length_mm),
+    !is.na(body_temperature))
 ```
