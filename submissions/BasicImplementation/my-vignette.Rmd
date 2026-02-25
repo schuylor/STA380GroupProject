@@ -1,4 +1,4 @@
-----
+---
 title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 bibliography: bibliography.bib
 nocite: "@*"
-----
+---
 # Import libraries and methods
 ```{r}
 library(tidyverse)
@@ -133,7 +133,7 @@ ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
              color = "red", size = 1.2) +
   labs(
     title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
-    x = "Difference in Mean snout lengths (mm)",
+    x = "Difference in Mean Body Temperature (Celsius)",
     y = "Frequency"
   )
  #Comparative Table
