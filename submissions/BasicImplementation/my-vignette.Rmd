@@ -133,7 +133,7 @@ ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
              color = "red", size = 1.2) +
   labs(
     title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
-    x = "Difference in Mean snout lengths (mm)",
+    x = "Difference in Mean body temperature (celsius)",
     y = "Frequency"
   )
  #Comparative Table
@@ -161,5 +161,6 @@ The authors used Gemini and ChatGPT for:
 The authors reviewed and verified any AI-suggested logic and feedback 
 
 # Bibliography
+
 
 
