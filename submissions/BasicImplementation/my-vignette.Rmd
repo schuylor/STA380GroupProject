@@ -114,7 +114,7 @@ comparative_table_for_mean_len <- data.frame(
 # Print table
 print(comparative_table_for_mean_len)
 ```
-  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
+  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
 # Convert to dataframe
 boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
@@ -126,6 +126,8 @@ ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
   labs(
     title = "Bootstrap Distribution: Body Temprature Difference (Gravid vs Non-Gravid)",
     x = "Difference in Body Temprature (celsius)",
+    title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
+    x = "Difference in Mean snout lengths (mm)",
     y = "Frequency"
   )
  #Comparative Table
@@ -144,5 +146,6 @@ comparative_table_for_mean_body_temp <- data.frame(
 # Print table
 print(comparative_table_for_mean_body_temp)
 ```
+
 
 
