@@ -158,4 +158,5 @@ print(comparative_table_for_mean_body_temp)
 
 The authors used Gemini and ChatGPT for technical troubleshooting/debugging R error messages and  Git version control conflicts. The models also helped generate ideas for test cases and provided R grammar suggestions and feedback on formatting. The authors reviewed any AI-suggested logic and feedback. 
 
-# Bibliography 
+# Bibliography
+
