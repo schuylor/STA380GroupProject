@@ -75,7 +75,7 @@ boot_mean_snout_len <- two_sample_bootstrap(
 
 print(head(boot_mean_snout_len, 5))
 
-# Bootstrap estimate for Body temp of  gravid and non-gravid females 
+# Bootstrap estimate for mean Body temp of gravid and non-gravid females
 boot_mean_body_temp <- two_sample_bootstrap(
     f_gravid_btemp, 
     f_nongravid_btemp,
@@ -88,9 +88,10 @@ boot_mean_body_temp <- two_sample_bootstrap(
 ```{r}
 # Convert to dataframe
 boot_mean_snout_len_dist <- data.frame(diff_len = boot_mean_snout_len)
+
 #Plot bootstrap Distribution Histogram
 ggplot(boot_mean_snout_len_dist, aes(x = diff_len))  +
-    geom_histogram(bins = 30, fill = "lightblue", color = "black")+
+    geom_histogram(bins = 30, fill = "lightblue", color = "black") +
     geom_vline(xintercept = mean(boot_mean_snout_len),
              color = "red", size = 1.2) +
   labs(
@@ -118,6 +119,7 @@ print(comparative_table_for_mean_len)
 ```{r}
 # Convert to dataframe
 boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
+
 #Plot bootstrap Distribution Histogram
 ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
     geom_histogram(bins = 30, fill = "darkblue", color = "black")+
