@@ -132,8 +132,6 @@ ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
     geom_vline(xintercept = mean(boot_mean_body_temp),
              color = "red", size = 1.2) +
   labs(
-    title = "Bootstrap Distribution: Body Temprature Difference (Gravid vs Non-Gravid)",
-    x = "Difference in Body Temprature (celsius)",
     title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
     x = "Difference in Mean snout lengths (mm)",
     y = "Frequency"
@@ -163,4 +161,5 @@ The authors used Gemini and ChatGPT for:
 The authors reviewed and verified any AI-suggested logic and feedback 
 
 # Bibliography
+
 
