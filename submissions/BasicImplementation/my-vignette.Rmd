@@ -17,6 +17,17 @@ library(ggplot2)
 library(knitr)
 source("submissions/BasicImplementation/bootstrap.R")
 ```
+This vignette demonstrates how to use the function within the 'STA380GroupProject' package for simulating sample distributions with the two-sample bootstrap method:
+
+- two-sample bootstrap 'STA380GroupProject::two_sample_bootstrap()
+
+
+The following examples are for generating 1000 bootstrap iterations to construct sampling distributions for the difference in means across two biological categories. We investigate: 
+
+- Sexual variation: Computing mean snout-vent lengths(mm) between males and females
+
+- Thermoregulation: Comparing mean body temperatures (Celsius) between gravid and non-gravid females
+
 # Load Data
 ```{r}
 lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
@@ -26,6 +37,7 @@ lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
 print(head(lizard_data, 5))
 ```
 # Clean up data
+Before the dataset can be analyzed, it must be cleaned to ensure consistency. We standardize variable names and remove observations with missing values for sex, snout-vent length, or body temperature to ensure our bootstrap iterations are based on complete cases. 
 ```{r}
 #Clean names replace . with _ between word spaces,
 #remove white spaces and lowercase
@@ -70,6 +82,9 @@ f_nongravid_btemp <- clean_data[  # Body temp of non-pregnant females
 ```
 
 # Apply two sample bootstrap function to calculate mean
+
+In order to compare these groups, a two-sample bootstrap approach is utilized. We resample the observed data with replacement 1000 times to construct a sampling distribution of the difference in means. 
+
 ```{r}
 
 #Bootstrap estimate for mean Snout Lengths
@@ -90,7 +105,11 @@ boot_mean_body_temp <- two_sample_bootstrap(
 
 
 ```
+
 # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Snout Lengths (Male vs Female)
+
+The bootstrap distribution for snout-vent length visually represents the difference between males and females. 
+
 ```{r}
 # Convert to dataframe
 boot_mean_snout_len_dist <- data.frame(diff_len = boot_mean_snout_len)
@@ -121,7 +140,13 @@ comparative_table_for_mean_len <- data.frame(
 # Print table
 print(comparative_table_for_mean_len)
 ```
-  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
+
+The bootstrap distribution for the difference in mean snout-vent length in males vs females is centered at approximately -4.5 mm. Since the entire distribution is well below zero, we can conclude that there is a statistically significant difference in the size of snout-vent lengths between the sexes in this population.
+
+# Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
+
+The body temperature bootstrap distribution allows us to evaluate the thermoregulatory behavior of female lizards. The difference in means can be analyzed to infer whether reproductive status leads to changes in body temperature.
+
 ```{r}
 # Convert to dataframe
 boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
@@ -152,12 +177,10 @@ comparative_table_for_mean_body_temp <- data.frame(
 # Print table
 print(comparative_table_for_mean_body_temp)
 ```
+The comparison of body temperatures between gravid and non-gravid females shows a bootstrap distribution centered near -0.9°C. The large majority of the distribution is below zero and negative. This provides evidence to suggest that reproductive status does influence thermoregulation in this species. 
+
 # AI Declaration 
 
-The authors used Gemini and ChatGPT for: 
- -technical troubleshooting/debugging R error messages and  Git version control conflicts.
- -Helping to generate ideas for test cases
- -Providing R grammar suggestions and feedback on formatting
-The authors reviewed and verified any AI-suggested logic and feedback 
+The authors used Gemini and ChatGPT for technical troubleshooting/debugging R error messages and  Git version control conflicts. These tools were also used to generate ideas for test cases, provide R grammar suggestions and offer feedback on formatting.The authors reviewed and verified any AI-suggested logic and feedback. 
 
 # Bibliography
