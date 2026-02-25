@@ -1,4 +1,4 @@
----
+----
 title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
@@ -13,7 +13,7 @@ source("submissions/BasicImplementation/bootstrap.R")
 ```
 # Load Data
 ```{r}
-lizard_data <- read.csv("submissions/BasicImplementation/bootstrap.R",
+lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
  fileEncoding = "latin1")
 
 # Inspect data
@@ -75,7 +75,7 @@ boot_mean_snout_len <- two_sample_bootstrap(
 
 print(head(boot_mean_snout_len, 5))
 
-# Bootstrap estimate for Body temp of  gravid and non-gravid females 
+# Bootstrap estimate for mean Body temp of gravid and non-gravid females
 boot_mean_body_temp <- two_sample_bootstrap(
     f_gravid_btemp, 
     f_nongravid_btemp,
@@ -87,10 +87,11 @@ boot_mean_body_temp <- two_sample_bootstrap(
 # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Snout Lengths (Male vs Female)
 ```{r}
 # Convert to dataframe
-boot_mean_snout_len_dist <- data.frame(diffs = boot_mean_snout_len)
+boot_mean_snout_len_dist <- data.frame(diff_len = boot_mean_snout_len)
+
 #Plot bootstrap Distribution Histogram
-ggplot(boot_mean_snout_len_dist, aes(x = diffs))  +
-    geom_histogram(bins = 30, fill = "lightblue", color = "black")+
+ggplot(boot_mean_snout_len_dist, aes(x = diff_len))  +
+    geom_histogram(bins = 30, fill = "lightblue", color = "black") +
     geom_vline(xintercept = mean(boot_mean_snout_len),
              color = "red", size = 1.2) +
   labs(
@@ -114,17 +115,20 @@ comparative_table_for_mean_len <- data.frame(
 # Print table
 print(comparative_table_for_mean_len)
 ```
-  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Boosstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
+  # Generate Bootstrap Distribution Histogram and Comparative Statistics Table for Bootstrap estimate for mean Body temperatures (Gravid vs Non-Gravid)
 ```{r}
 # Convert to dataframe
-boot_mean_body_temp_dist <- data.frame(diffs = boot_mean_body_temp)
+boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
+
 #Plot bootstrap Distribution Histogram
-ggplot(boot_mean_snout_len_dist, aes(x = diffs))  +
+ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
     geom_histogram(bins = 30, fill = "darkblue", color = "black")+
     geom_vline(xintercept = mean(boot_mean_body_temp),
              color = "red", size = 1.2) +
   labs(
-    title = "Bootstrap Distribution: Snouth length Difference (Male vs Female)",
+    title = "Bootstrap Distribution: Body Temprature Difference (Gravid vs Non-Gravid)",
+    x = "Difference in Body Temprature (celsius)",
+    title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
     x = "Difference in Mean snout lengths (mm)",
     y = "Frequency"
   )
@@ -144,4 +148,6 @@ comparative_table_for_mean_body_temp <- data.frame(
 # Print table
 print(comparative_table_for_mean_body_temp)
 ```
+
+
 
