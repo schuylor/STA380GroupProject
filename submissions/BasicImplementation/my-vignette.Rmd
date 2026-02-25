@@ -154,6 +154,3 @@ comparative_table_for_mean_body_temp <- data.frame(
 # Print table
 print(comparative_table_for_mean_body_temp)
 ```
-
-
-
