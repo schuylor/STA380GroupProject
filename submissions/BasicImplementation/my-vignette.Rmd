@@ -3,6 +3,12 @@ title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
 output: html_document
+vignette: >
+  %\VignetteIndexEntry{Lizard Data Analysis Vignette}
+  %\VignetteEngine{knitr:rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: bibliography.bib
+nocite: "@*"
 ----
 # Import libraries and methods
 ```{r}
