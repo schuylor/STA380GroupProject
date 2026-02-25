@@ -9,11 +9,11 @@ output: html_document
 library(tidyverse)
 library(ggplot2)
 library(knitr)
-source("submissions/BasicImplementation/bootstrap.R")
+source("bootstrap.R")
 ```
 # Load Data
 ```{r}
-lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
+lizard_data <- read.csv("data.csv",
  fileEncoding = "latin1")
 
 # Inspect data
@@ -125,11 +125,9 @@ ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
     geom_histogram(bins = 30, fill = "darkblue", color = "black")+
     geom_vline(xintercept = mean(boot_mean_body_temp),
              color = "red", size = 1.2) +
-  labs(
-    title = "Bootstrap Distribution: Body Temprature Difference (Gravid vs Non-Gravid)",
-    x = "Difference in Body Temprature (celsius)",
+labs(
     title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
-    x = "Difference in Mean snout lengths (mm)",
+    x = "Difference in Mean Body Temperature (Celsius)",
     y = "Frequency"
   )
  #Comparative Table
