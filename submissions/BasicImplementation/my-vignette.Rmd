@@ -15,7 +15,8 @@ nocite: "@*"
 library(tidyverse)
 library(ggplot2)
 library(knitr)
-source("submissions/BasicImplementation/bootstrap.R")
+library(testthat)
+source("bootstrap.R")
 ```
 This vignette demonstrates how to use the function within the 'STA380GroupProject' package for simulating sample distributions with the two-sample bootstrap method:
 
@@ -30,7 +31,7 @@ The following examples are for generating 1000 bootstrap iterations to construct
 
 # Load Data
 ```{r}
-lizard_data <- read.csv("submissions/BasicImplementation/data.csv",
+lizard_data <- read.csv("data.csv",
  fileEncoding = "latin1")
 
 # Inspect data
@@ -178,6 +179,17 @@ comparative_table_for_mean_body_temp <- data.frame(
 print(comparative_table_for_mean_body_temp)
 ```
 The comparison of body temperatures between gravid and non-gravid females shows a bootstrap distribution centered near -0.9°C. The large majority of the distribution is below zero and negative. This provides evidence to suggest that reproductive status does influence thermoregulation in this species. 
+
+# Test Outputs
+
+To verify the correctness of the `two_sample_bootstrap` function, we run our unit tests using the `testthat` package. The tests check for correct output types, lengths, expected mathematical results with constant vectors, and reproducibility.
+
+```{r run-tests, message=FALSE, warning=FALSE}
+library(testthat)
+
+# Run the test file to display outputs in the vignette
+test_file("test-bootstrap.R")
+```
 
 # AI Declaration 
 
