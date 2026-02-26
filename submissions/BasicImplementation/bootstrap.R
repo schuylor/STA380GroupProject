@@ -21,23 +21,34 @@
 #'
 #' @importFrom stats mean median
 #' @export
-two_sample_bootstrap <- function(group1, group2, iterations = 1000, stat = "mean") {
+two_sample_bootstrap <- function(group1, group2, 
+                                 iterations = 1000, stat = "mean",
+                                 resample_length = NULL) {
 
 
   boot_diffs <- numeric(iterations) # Pre-allocation
 
   # Determine which statistic function to use based on user input
-  if (stat == "median") {
-    stat_func <- median
-  } else {
-    stat_func <- mean
+  #if (stat == "median") {
+  #  stat_func <- median
+  #} else {
+  #  stat_func <- mean
+  #}
+  
+  ## Anna: this is shorter, more elegant
+  stat_func <- if(stat == "median") median else mean
+  
+  ## Anna: I added this portion, because for the bootstrap
+  ## you may want to add flexibility regarding the re-sample size.
+  ## you should also document it because I won't for you lol
+  if(is.null(resample_length)){
+    resample_length = c(length(group1), length(group2))
   }
 
-
   for (i in 1:iterations) {
-    # Note that set reeplce = TRUE
-    resample1 <- sample(group1, size = length(group1), replace = TRUE)
-    resample2 <- sample(group2, size = length(group2), replace = TRUE)
+    # Note that set replace = TRUE
+    resample1 <- sample(group1, size = resample_length[1], replace = TRUE)
+    resample2 <- sample(group2, size = resample_length[2], replace = TRUE)
 
     # Calculate the difference in the chosen statistic and store it
     boot_diffs[i] <- stat_func(resample1) - stat_func(resample2)

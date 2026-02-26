@@ -1,0 +1,35 @@
+vignette:
+
+I edit this file a little bit:
+1. you can suppress messages (loading messages for packages are sooo annoying)... I also noticed you used this for the
+# Test Outputs section.
+2. printing first 50 is overkill for a .pdf or .html file; I did 10 for you instead
+3. you should likely read the warning file for ggplot... you are using very old code here.
+4. I removed the # Test Outputs section since it's not typically part of a vignette, and also, based on the output it also wasn't relatively informative. (Just said everything passed).
+
+bootstrap.R:
+
+fixed typo, changed some code (please view; more details there).
+
+test-bootstrap.R
+
+the following test isn't really needed; you're testing set.seed(), which is a built in function in R.
+
+test_that("two_sample_bootstrap is reproducible under set.seed()", {
+  g1 <- rnorm(20)
+  g2 <- rnorm(20)
+
+  set.seed(123)
+  out1 <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "mean")
+
+  set.seed(123)
+  out2 <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "mean")
+
+  expect_equal(out1, out2)
+})
+
+you mostly are testing for functions that you wrote.
+
+grade: 2/2
+
+

@@ -11,7 +11,7 @@ bibliography: bibliography.bib
 nocite: "@*"
 ---
 # Import libraries and methods
-```{r}
+```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
 library(knitr)
@@ -44,8 +44,8 @@ Before the dataset can be analyzed, it must be cleaned to ensure consistency. We
 #remove white spaces and lowercase
 colnames(lizard_data) <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
 
-#Print the first 50 entries of dataset
-print(head(lizard_data, 50))
+#Print the first 10 entries of dataset
+print(head(lizard_data, 10))
 #Print Size of data set
 print(dim(lizard_data))
 
@@ -119,7 +119,7 @@ boot_mean_snout_len_dist <- data.frame(diff_len = boot_mean_snout_len)
 ggplot(boot_mean_snout_len_dist, aes(x = diff_len))  +
     geom_histogram(bins = 30, fill = "lightblue", color = "black") +
     geom_vline(xintercept = mean(boot_mean_snout_len),
-             color = "red", size = 1.2) +
+             color = "red", linewidth = 1.2) +
   labs(
     title = "Bootstrap Distribution: Snouth length Difference (Male vs Female)",
     x = "Difference in Mean snout lengths (mm)",
@@ -156,7 +156,7 @@ boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
 ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
     geom_histogram(bins = 30, fill = "darkblue", color = "black")+
     geom_vline(xintercept = mean(boot_mean_body_temp),
-             color = "red", size = 1.2) +
+             color = "red", linewidth = 1.2) +
   labs(
     title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
     x = "Difference in Mean Body Temperature (Celsius)",
@@ -179,17 +179,6 @@ comparative_table_for_mean_body_temp <- data.frame(
 print(comparative_table_for_mean_body_temp)
 ```
 The comparison of body temperatures between gravid and non-gravid females shows a bootstrap distribution centered near -0.9°C. The large majority of the distribution is below zero and negative. This provides evidence to suggest that reproductive status does influence thermoregulation in this species. 
-
-# Test Outputs
-
-To verify the correctness of the `two_sample_bootstrap` function, we run our unit tests using the `testthat` package. The tests check for correct output types, lengths, expected mathematical results with constant vectors, and reproducibility.
-
-```{r run-tests, message=FALSE, warning=FALSE}
-library(testthat)
-
-# Run the test file to display outputs in the vignette
-test_file("test-bootstrap.R")
-```
 
 # AI Declaration 
 

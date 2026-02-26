@@ -4,6 +4,10 @@ library(testthat)
 if (file.exists("bootstrap.R")) {
   source("bootstrap.R")
 } else {
+  ## Anna: below won't work for all computers by the way...
+  ## I'm fine with just letting the user assume bootstrap.R works in the same
+  ## directory. This should all be managed properly in the next checkpoint
+  ## once you formulate it in the package.
   source("submissions/BasicImplementation/bootstrap.R")
 }
 
