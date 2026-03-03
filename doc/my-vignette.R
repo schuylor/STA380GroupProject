@@ -1,0 +1,134 @@
+## ----message = FALSE----------------------------------------------------------
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(testthat)
+library(sta380)
+
+## -----------------------------------------------------------------------------
+data(lizard_data)
+
+# Inspect data
+print(head(lizard_data, 5))
+
+## -----------------------------------------------------------------------------
+#Clean names replace . with _ between word spaces,
+#remove white spaces and lowercase
+colnames(lizard_data) <- tolower(gsub(" ", "_", trimws(gsub("\\.+", " ", colnames(lizard_data)))))
+
+#Print the first 10 entries of dataset
+print(head(lizard_data, 10))
+#Print Size of data set
+print(dim(lizard_data))
+
+#Remove rows with missing sex, snout_vent_length_mm or body_temperature_c
+clean_data <- lizard_data %>% 
+    filter(
+    !is.na(sex),
+    !is.na(snout_vent_length_mm),
+    !is.na(body_temperature_c))
+
+#Print the first 5 entries of dataset
+print(head(clean_data, 5))
+#Print Size of data set
+print(dim(clean_data))
+
+## -----------------------------------------------------------------------------
+# Snout Length values
+male_snout_len <- clean_data[    # Male snout length
+    clean_data["sex"] == "M",
+    "snout_vent_length_mm"]
+
+female_snout_len <- clean_data[  # Female snout length
+    clean_data["sex"] == "F",
+    "snout_vent_length_mm"]
+
+# Body Temps
+f_gravid_btemp <- clean_data[     # Body temp of pregnant females
+    clean_data["reproductive_status"] == "gravid",
+    "body_temperature_c"]
+
+f_nongravid_btemp <- clean_data[  # Body temp of non-pregnant females
+    clean_data["reproductive_status"] == "nongravid",
+    "body_temperature_c"]
+
+## -----------------------------------------------------------------------------
+
+#Bootstrap estimate for mean Snout Lengths
+boot_mean_snout_len <- two_sample_bootstrap(
+    male_snout_len, 
+    female_snout_len,
+    iterations = 1000,
+    stat = "mean")
+
+print(head(boot_mean_snout_len, 5))
+
+# Bootstrap estimate for mean Body temp of gravid and non-gravid females
+boot_mean_body_temp <- two_sample_bootstrap(
+    f_gravid_btemp, 
+    f_nongravid_btemp,
+    iterations = 1000,
+    stat = "mean")
+
+
+
+## -----------------------------------------------------------------------------
+# Convert to dataframe
+boot_mean_snout_len_dist <- data.frame(diff_len = boot_mean_snout_len)
+
+#Plot bootstrap Distribution Histogram
+ggplot(boot_mean_snout_len_dist, aes(x = diff_len))  +
+    geom_histogram(bins = 30, fill = "lightblue", color = "black") +
+    geom_vline(xintercept = mean(boot_mean_snout_len),
+             color = "red", linewidth = 1.2) +
+  labs(
+    title = "Bootstrap Distribution: Snouth length Difference (Male vs Female)",
+    x = "Difference in Mean snout lengths (mm)",
+    y = "Frequency"
+  )
+ #Comparative Table
+comparative_table_for_mean_len <- data.frame(
+  Statistic = c("Mean", "Median", "Standard Deviation"),
+  Male = c(
+    mean(male_snout_len),
+    median(male_snout_len),
+    sd(male_snout_len)),
+  Female = c(
+    mean(female_snout_len),
+    median(female_snout_len),
+    sd(female_snout_len)
+  ))
+
+# Print table
+print(comparative_table_for_mean_len)
+
+## -----------------------------------------------------------------------------
+# Convert to dataframe
+boot_mean_body_temp_dist <- data.frame(diff_temp = boot_mean_body_temp)
+
+#Plot bootstrap Distribution Histogram
+ggplot(boot_mean_body_temp_dist, aes(x = diff_temp))  +
+    geom_histogram(bins = 30, fill = "darkblue", color = "black")+
+    geom_vline(xintercept = mean(boot_mean_body_temp),
+             color = "red", linewidth = 1.2) +
+  labs(
+    title = "Bootstrap Distribution: Body Temperature Difference (Gravid vs Non-Gravid)",
+    x = "Difference in Mean Body Temperature (Celsius)",
+    y = "Frequency"
+  )
+ #Comparative Table
+comparative_table_for_mean_body_temp <- data.frame(
+  Statistic = c("Mean", "Median", "Standard Deviation"),
+  Gravid = c(
+    mean(f_gravid_btemp),
+    median(f_gravid_btemp),
+    sd(f_gravid_btemp)),
+  Nongravid = c(
+    mean(f_nongravid_btemp),
+    median(f_nongravid_btemp),
+    sd(f_nongravid_btemp)
+  ))
+
+# Print table
+print(comparative_table_for_mean_body_temp)
+
