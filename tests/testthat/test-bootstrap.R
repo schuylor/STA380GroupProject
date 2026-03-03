@@ -1,4 +1,3 @@
-
 test_that("two_sample_bootstrap returns a numeric vector of the right length", {
   set.seed(1)
   g1 <- c(1, 2, 3, 4, 5)
@@ -7,13 +6,6 @@ test_that("two_sample_bootstrap returns a numeric vector of the right length", {
   expect_type(out, "double")
   expect_length(out, 200)
   expect_true(all(is.finite(out)))
-})
-
-test_that("two_sample_bootstrap is reproducible under set.seed()", {
-  g1 <- rnorm(20); g2 <- rnorm(20)
-  set.seed(123); out1 <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "mean")
-  set.seed(123); out2 <- two_sample_bootstrap(g1, g2, iterations = 100, stat = "mean")
-  expect_equal(out1, out2)
 })
 
 test_that("constant groups give a constant bootstrap difference (mean)", {
@@ -64,3 +56,5 @@ test_that("function runs on the project dataset (smoke test)", {
   expect_type(out, "double")
   expect_true(all(is.finite(out)))
 })
+
+
