@@ -1,16 +1,5 @@
 library(testthat)
 
-# Load the function file (works whether tests are run from repo root or this folder)
-if (file.exists("bootstrap.R")) {
-  source("bootstrap.R")
-} else {
-  ## Anna: below won't work for all computers by the way...
-  ## I'm fine with just letting the user assume bootstrap.R works in the same
-  ## directory. This should all be managed properly in the next checkpoint
-  ## once you formulate it in the package.
-  source("submissions/BasicImplementation/bootstrap.R")
-}
-
 test_that("two_sample_bootstrap returns a numeric vector of the right length", {
   set.seed(1)
   g1 <- c(1, 2, 3, 4, 5)
@@ -76,19 +65,15 @@ test_that("mean vs median option returns valid outputs", {
 
 test_that("function runs on the project dataset (smoke test)", {
   # repo-root path
-  data_path <- "submissions/BasicImplementation/data.csv"
+  data("lizard_data", package = "sta380", envir = environment())
+  df <- lizard_data
 
-  # If tests are run from inside BasicImplementation, use local fallback
-  if (!file.exists(data_path) && file.exists("data.csv")) {
-    data_path <- "data.csv"
-  }
+  # Dynamically find the sex and snout length columns to avoid formatting errors
+  sex_col <- grep("sex", colnames(df), ignore.case = TRUE, value = TRUE)[1]
+  len_col <- grep("length", colnames(df), ignore.case = TRUE, value = TRUE)[1]
 
-  skip_if_not(file.exists(data_path))
-
-  df <- read.csv(data_path, check.names = FALSE)
-
-  male_svl <- df$`Snout-vent length (mm)`[df$Sex == "M"]
-  fem_svl  <- df$`Snout-vent length (mm)`[df$Sex == "F"]
+  male_svl <- df[[len_col]][df[[sex_col]] == "M"]
+  fem_svl  <- df[[len_col]][df[[sex_col]] == "F"]
 
   male_svl <- male_svl[!is.na(male_svl)]
   fem_svl  <- fem_svl[!is.na(fem_svl)]

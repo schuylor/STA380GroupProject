@@ -3,6 +3,7 @@
 #' @description Calculates the bootstrap distribution of the difference between
 #' two biological groups using either the difference in means or the difference in medians.
 #'
+#'@param resample_length A description of what this parameter does.
 #' @param group1 A numeric vector representing the first biological sample (e.g., Male Snout Length).
 #' @param group2 A numeric vector representing the second biological sample (e.g., Female Snout Length).
 #' @param iterations A numeric value specifying the number of bootstrap samples to generate. Default is 1000.
@@ -19,9 +20,9 @@
 #' # Run the bootstrap function for difference in means
 #' boot_results <- two_sample_bootstrap(male_lizards, female_lizards, iterations = 1000, stat = "mean")
 #'
-#' @importFrom stats mean median
+#' @importFrom stats median
 #' @export
-two_sample_bootstrap <- function(group1, group2, 
+two_sample_bootstrap <- function(group1, group2,
                                  iterations = 1000, stat = "mean",
                                  resample_length = NULL) {
 
@@ -34,10 +35,10 @@ two_sample_bootstrap <- function(group1, group2,
   #} else {
   #  stat_func <- mean
   #}
-  
+
   ## Anna: this is shorter, more elegant
   stat_func <- if(stat == "median") median else mean
-  
+
   ## Anna: I added this portion, because for the bootstrap
   ## you may want to add flexibility regarding the re-sample size.
   ## you should also document it because I won't for you lol

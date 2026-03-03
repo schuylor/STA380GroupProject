@@ -2,7 +2,7 @@
 title: "Data Analysis"
 Author: "Maheep Mundra, Addison Dinglasan"
 Date: "2026-02-23"
-output: html_document
+output: pdf_document
 vignette: >
   %\VignetteIndexEntry{Lizard Data Analysis Vignette}
   %\VignetteEngine{knitr:rmarkdown}
@@ -16,7 +16,7 @@ library(tidyverse)
 library(ggplot2)
 library(knitr)
 library(testthat)
-source("bootstrap.R")
+library(sta380)
 ```
 This vignette demonstrates how to use the function within the 'STA380GroupProject' package for simulating sample distributions with the two-sample bootstrap method:
 
@@ -31,8 +31,7 @@ The following examples are for generating 1000 bootstrap iterations to construct
 
 # Load Data
 ```{r}
-lizard_data <- read.csv("data.csv",
- fileEncoding = "latin1")
+data(lizard_data)
 
 # Inspect data
 print(head(lizard_data, 5))
