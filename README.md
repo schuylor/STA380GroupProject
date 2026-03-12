@@ -1,4 +1,3 @@
-# STA380GroupProject
 # Bootstrap Analysis of Physiological Traits in Florida Scrub Lizards
 
 ## Project Overview
