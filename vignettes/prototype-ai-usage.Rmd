@@ -1,1 +1,26 @@
+---
+title: "Website Prototype: AI Usage Statement"
+Author: "Addison Dinglasan, Maheep Mudra"
+Date: "2026-03-12" 
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Website Prototype: AI Usage Statement}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
+# Generative AI Usage Statement
+
+In accordance with the STA380 website prototype rubric details, this vignette details the specific use of Generative AI (Gemini and ChatGPT) during the transition from a standard R package to a functional Shiny website prototype.
+
+## 1. Debugging and Error Handling 
+Generative AI was utilized to debug Shiny error messages. Specifically, we used these tools to resolve non-numeric data extraction errors. These errors were identified as being caused by R's default column renaming behavior during data handling.
+
+## 2. Implementation of UX Validation Functions
+AI was used to help implement UX validation functions, specifically 'req()' and 'validate()'. These functions were incorporated to prevent server overload that could result from excessive bootstrap iterations.
+
+## 3. Code Clarification
+Generative AI was utilized for clarifying the R code. This was done to ensure the final code base is clean and well-organized for the prototype submission.
+
+## Human Verification
+All AI-generated suggestions,including code snippets and debugging logic, were manually reviewed and verified by the authors. We performed localized testing to ensure that the integrated components function as intended and align with the project's goals.
