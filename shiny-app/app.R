@@ -4,7 +4,7 @@ library(ggplot2)
 library(colourpicker)
 
 source("R/bootstrap_functions.R", local = TRUE)
-source("R/data_loader.R", local = TRUE)
+load("data/lizard_data.rda")
 # =====================================================================
 # FRONT-END (Sage)
 # =====================================================================
