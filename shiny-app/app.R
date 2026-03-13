@@ -2,9 +2,9 @@ library(shiny)
 library(bslib)
 library(ggplot2)
 library(colourpicker)
-library(sta380)
-data("lizard_data", package = "sta380", envir = environment())
 
+source("R/bootstrap_functions.R", local = TRUE)
+source("R/data_loader.R", local = TRUE)
 # =====================================================================
 # FRONT-END (Sage)
 # =====================================================================
@@ -105,7 +105,7 @@ server <- function(input, output, session) {
     if(length(group1) == 0 || length(group2) == 0) {
       stop("Selected data columns are not numeric! (Check column names)")
     }
-    res <- sta380::two_sample_bootstrap(group1 = group1,
+    res <- two_sample_bootstrap(group1 = group1,
                                         group2 = group2,
                                         iterations = input$num_iter,
                                         stat = input$stat_select)
