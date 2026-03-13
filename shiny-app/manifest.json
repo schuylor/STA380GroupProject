@@ -1765,16 +1765,13 @@
   },
   "files": {
     "app.R": {
-      "checksum": "63e433610299d548c6849149fbe2f440"
+      "checksum": "8db11396686f673c2401ae28848cfa04"
     },
     "data/lizard_data.rda": {
       "checksum": "8f534ca61da4010b686a28e1545bda45"
     },
     "R/bootstrap_functions.R": {
-      "checksum": "bb63dca0172b53c92e9c9bc691e76b9b"
-    },
-    "R/data_loader.R": {
-      "checksum": "d41d8cd98f00b204e9800998ecf8427e"
+      "checksum": "ee7278590c6646244c57589c8c13fec5"
     }
   },
   "users": null
