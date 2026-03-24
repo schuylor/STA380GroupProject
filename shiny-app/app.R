@@ -126,6 +126,7 @@ server <- function(input, output, session) {
 
     p <- ggplot(data_for_plot, aes(x = diffs)) +
       geom_histogram(fill = input$plot_color, color = "black", bins = 30) +
+      geom_vline(xintercept = mean(data_for_plot$diffs), color = "red", linewidth = 1.2) +
       theme_minimal() +
       labs(
         title = paste("Bootstrap Distribution (", input$num_iter, " Iterations)", sep = ""),
