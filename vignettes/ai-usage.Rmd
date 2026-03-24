@@ -25,7 +25,7 @@ Generative AI was utilized for clarifying the R code. This was done to ensure th
 ## 4. Implementation of "downloadHandler" Function and CSV Export Button Feature
 AI was used to understand the underlying logic of the "downloadHandler" function, which provided the technical insight needed to successfully write the comparative statistics table into the final csv export.
 
-##5. Interactive Data Visualization with "plotly"
+## 5. Interactive Data Visualization with "plotly"
 AI was used to help integrate and understand the "plotly package and convert static plots into interactive ones using ggplotly(). It specifically helped with the debugging process, ensuring that the interactive hover-text accurately reported the exact difference in means/medians and bin frequencies. This made it easy to improve the overall data legibility and user experience within the shiny application.
 
 ## Human Verification
