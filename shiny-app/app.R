@@ -3,6 +3,7 @@ library(bslib)
 library(ggplot2)
 library(colourpicker)
 
+
 source("R/bootstrap_functions.R", local = TRUE)
 load("data/lizard_data.rda")
 # =====================================================================
@@ -141,5 +142,6 @@ server <- function(input, output, session) {
       SD = c(sd(res_list$g1_data), sd(res_list$g2_data))
     )
   })
+
 }
 shinyApp(ui = ui, server = server)
