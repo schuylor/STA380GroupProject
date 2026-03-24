@@ -36,7 +36,13 @@ ui <- page_sidebar(
 
     colourpicker::colourInput(inputId = "plot_color",
                               label = "5. Visualization Color:",
-                              value = "#3498DB")
+                              value = "#3498DB"),
+    downloadButton(
+      "btn_export_csv",
+      "Export Report",
+      icon = shiny ::icon("file-csv")
+
+    )
   ),
 
   card(
@@ -146,5 +152,29 @@ server <- function(input, output, session) {
       SD = c(sd(res_list$g1_data), sd(res_list$g2_data))
     )
   })
+
+  output$btn_export_csv <- downloadHandler(
+    filename = function() {
+      paste("lizard_analysis_", Sys.Date(), ".csv", sep = "")
+
+    },
+    content = function(file) {
+      res_list <- boot_results()
+      summary_df <- data.frame(
+        Group  = c(res_list$n1, res_list$n2),
+        Mean   = c(mean(res_list$g1_data), mean(res_list$g2_data)),
+        Median = c(median(res_list$g1_data), median(res_list$g2_data)),
+        SD     = c(sd(res_list$g1_data), sd(res_list$g2_data))
+      )
+
+      writer <- file(file, open = "wt")
+      writeLines("COMPARATIVE STATISTICS", writer)
+      write.table(summary_df, writer, sep = ",", row.names = FALSE, col.names = TRUE)
+      writeLines("\n\nRAW LIZARD DATA", writer)
+      write.table(lizard_data, writer, sep = ",", row.names = FALSE, col.names = TRUE)
+      close(writer)
+    }
+  )
+
 }
 shinyApp(ui = ui, server = server)
