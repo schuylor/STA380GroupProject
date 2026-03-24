@@ -2,6 +2,7 @@ library(shiny)
 library(bslib)
 library(ggplot2)
 library(colourpicker)
+library(plotly)
 
 source("R/bootstrap_functions.R", local = TRUE)
 load("data/lizard_data.rda")
@@ -40,7 +41,7 @@ ui <- page_sidebar(
 
   card(
     card_header("Bootstrap Distribution Histogram"),
-    plotOutput(outputId = "boot_plot")
+    plotlyOutput(outputId = "boot_plot")
   ),
 
   card(
@@ -119,16 +120,20 @@ server <- function(input, output, session) {
     ))
   })
 
-  output$boot_plot <- renderPlot({
+  output$boot_plot <- renderPlotly({
     res_list <- boot_results()
     data_for_plot <- data.frame(diffs = res_list$diffs)
 
-    ggplot(data_for_plot, aes(x = diffs)) +
+    p <- ggplot(data_for_plot, aes(x = diffs)) +
       geom_histogram(fill = input$plot_color, color = "black", bins = 30) +
       theme_minimal() +
-      labs(title = paste("Bootstrap Distribution (", input$num_iter, " Iterations)", sep=""),
-           x = paste("Difference in", tools::toTitleCase(input$stat_select)),
-           y = "Frequency")
+      labs(
+        title = paste("Bootstrap Distribution (", input$num_iter, " Iterations)", sep = ""),
+        x = paste("Difference in", tools::toTitleCase(input$stat_select)),
+        y = "Frequency"
+      )
+
+    ggplotly(p)
   })
 
   output$comp_table <- renderTable({
