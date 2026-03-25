@@ -2,12 +2,13 @@ library(shiny)
 library(bslib)
 library(ggplot2)
 library(colourpicker)
-
+library(plotly)
+library(shinycssloaders)
 
 source("R/bootstrap_functions.R", local = TRUE)
 load("data/lizard_data.rda")
 # =====================================================================
-# FRONT-END (Sage)
+# FRONT-END (Sage, Addison, Maheep)
 # =====================================================================
 ui <- page_sidebar(
   theme = bs_theme(version = 5, bootswatch = "flatly"),
@@ -36,12 +37,18 @@ ui <- page_sidebar(
 
     colourpicker::colourInput(inputId = "plot_color",
                               label = "5. Visualization Color:",
-                              value = "#3498DB")
+                              value = "#3498DB"),
+    downloadButton(
+      "btn_export_csv",
+      "Export Report",
+      icon = shiny ::icon("file-csv")
+
+    )
   ),
 
   card(
     card_header("Bootstrap Distribution Histogram"),
-    plotOutput(outputId = "boot_plot")
+    withSpinner(plotlyOutput(outputId = "boot_plot")) #Add Loading Spinner
   ),
 
   card(
@@ -51,7 +58,7 @@ ui <- page_sidebar(
 )
 
 # =====================================================================
-# BACK-END (Sage)
+# BACK-END (Sage, Amna, Addison, Maheep)
 # =====================================================================
 server <- function(input, output, session) {
 
@@ -119,29 +126,57 @@ server <- function(input, output, session) {
       n2 = name2
     ))
   })
-
-  output$boot_plot <- renderPlot({
+#Histogram Plot using Plotly
+  output$boot_plot <- renderPlotly({
+    Sys.sleep(0.5) #Add 0.5 second delay to see loading spinner animation
     res_list <- boot_results()
     data_for_plot <- data.frame(diffs = res_list$diffs)
 
-    ggplot(data_for_plot, aes(x = diffs)) +
+    p <- ggplot(data_for_plot, aes(x = diffs)) +
       geom_histogram(fill = input$plot_color, color = "black", bins = 30) +
       geom_vline(xintercept = mean(data_for_plot$diffs), color = "red", linewidth = 1.2) +
       theme_minimal() +
-      labs(title = paste("Bootstrap Distribution (", input$num_iter, " Iterations)", sep=""),
-           x = paste("Difference in", tools::toTitleCase(input$stat_select)),
-           y = "Frequency")
-  })
+      labs(
+        title = paste("Bootstrap Distribution (", input$num_iter, " Iterations)", sep = ""),
+        x = paste("Difference in", tools::toTitleCase(input$stat_select)),
+        y = "Frequency"
+      )
 
+    ggplotly(p)
+  })
+#Summary statistics Table
   output$comp_table <- renderTable({
     res_list <- boot_results()
-    data.frame(
+    summary_df <- data.frame(
       Group = c(res_list$n1, res_list$n2),
       Mean = c(mean(res_list$g1_data), mean(res_list$g2_data)),
       Median = c(median(res_list$g1_data), median(res_list$g2_data)),
       SD = c(sd(res_list$g1_data), sd(res_list$g2_data))
     )
   })
+#Download Comparative statistics
+  output$btn_export_csv <- downloadHandler(
+    filename = function() {
+      paste("lizard_analysis_", Sys.Date(), ".csv", sep = "")
+
+    },
+    content = function(file) {
+      res_list <- boot_results()
+      summary_df <- data.frame(
+        Group  = c(res_list$n1, res_list$n2),
+        Mean   = c(mean(res_list$g1_data), mean(res_list$g2_data)),
+        Median = c(median(res_list$g1_data), median(res_list$g2_data)),
+        SD     = c(sd(res_list$g1_data), sd(res_list$g2_data))
+      )
+
+      writer <- file(file, open = "wt")
+      writeLines("COMPARATIVE STATISTICS", writer)
+      write.table(summary_df, writer, sep = ",", row.names = FALSE, col.names = TRUE)
+      writeLines("\n\nRAW LIZARD DATA", writer)
+      write.table(lizard_data, writer, sep = ",", row.names = FALSE, col.names = TRUE)
+      close(writer)
+    }
+  )
 
 }
 shinyApp(ui = ui, server = server)
