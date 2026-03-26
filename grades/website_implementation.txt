@@ -1,0 +1,17 @@
+(Did this get deleted? I'm putting it back...)
+
+Great! Website looks good and I liked the generative AI statement.
+
+I think you have met the main requirements of the project. You may possibly not get full marks from this part of the final rubric:
+
+Additional Features (20%)
+
+    Creative extensions beyond requirements. 
+
+    Some examples: use of external packages not referenced, unique components, innovative designs, etc.
+
+However, do remember that you have 1 bonus mark left that is unused; so you can decide as a team if you're satisfied with a mid to high 90% on the project overall or if you want to get 100%.
+
+Looking at the number of commits thus far: I am satisfied with the work that most students have done, and I am unlikely to penalize individual students.
+
+1/1

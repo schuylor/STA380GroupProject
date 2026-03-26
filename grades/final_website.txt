@@ -1,0 +1,14 @@
+I notice the website is mostly the same. There's a small addition of plotly, but I think there are many other ways to go about extending it. For instance, you could add a description about the dataset on the website, how to interpret the results, more ways to edit the visualization color, etc.
+
+I also just notice now that you kept "Theme 3:" in the title, when that wouldn't make much sense to most people unless they knew the context of this course project lol.
+
+Grade:
+Additional features (-14%)
+There's plotly, but that's generally easy to implement. I was looking for something more fancy.
+
+Group grade: 
+> 66/80 * 6.4
+[1] 5.28
+
+Individual grades are private and will be released later when posted on Quercus. Bonus marks, if applicable, are reflected on Quercus instead of feedback here.
+
